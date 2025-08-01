@@ -1,3 +1,18 @@
+// Package main provides a Google Photos Album Random Image API
+//
+// This package implements a web server that serves random images from a public Google Photos album.
+// It includes features like automatic cache refresh, CORS support, and both JSON and image file endpoints.
+//
+// Example usage:
+//
+//	go run main.go
+//
+// The server will start on port 8080 and provide the following endpoints:
+//   - GET / - Demo page
+//   - GET /api/random - Get random image URL
+//   - GET /api/img.png - Get random image file
+//   - GET /api/images - Get all images
+//   - GET /api/refresh - Refresh cache
 package main
 
 import (

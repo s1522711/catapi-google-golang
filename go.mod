@@ -1,4 +1,4 @@
-module google-photos-album-api
+module github.com/s1522711/catapi-google-golang
 
 go 1.21
 

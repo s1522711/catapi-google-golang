@@ -1,6 +1,30 @@
 # Google Photos Album Random Image API
 
+[Go Reference](https://pkg.go.dev/github.com/s1522711/catapi-google-golang)
+
 A simple Go API that serves random images from a public Google Photos album.
+
+## Installation
+
+```bash
+go get github.com/s1522711/catapi-google-golang
+```
+
+## Quick Start
+
+```go
+package main
+
+import (
+    "log"
+    "github.com/s1522711/catapi-google-golang"
+)
+
+func main() {
+    // Your API will be available at http://localhost:8080
+    log.Println("Starting Google Photos Album API...")
+}
+```
 
 ## Setup
 
