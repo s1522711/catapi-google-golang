@@ -24,6 +24,7 @@ go run main.go
 
 - `GET /` - Demo page (serves index.html)
 - `GET /api` - API information
+- `GET /api/demo/` - Demo html file
 - `GET /api/random` - Get a random image URL from the album
 - `GET /api/img.png` - Get a random image file (serves actual image)
 - `GET /api/images` - Get all images from the album

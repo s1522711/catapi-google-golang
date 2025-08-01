@@ -70,6 +70,7 @@ func main() {
 					"GET /api/img.png - Get a random image file (serves actual image)",
 					"GET /api/images - Get all images from the album",
 					"GET /api/refresh - Refresh the image cache",
+					"GET /api/demo - Demo page",
 				},
 				"features": []string{
 					"Auto-refresh cache every 12 hours",
@@ -82,6 +83,9 @@ func main() {
 		api.GET("/img.png", handleRandomImageFile)
 		api.GET("/images", handleListImages)
 		api.GET("/refresh", handleRefreshCache)
+		api.GET("/demo", func(c *gin.Context) {
+			c.File("demo.html")
+		})
 	}
 
 	// Initialize image cache
