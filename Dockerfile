@@ -1,4 +1,4 @@
-FROM golang:1.24.5-bullseye
+FROM golang:alpine3.22
 
 LABEL maintainer="s1522711, <s1522711@protonmail.com>"
 
