@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -114,6 +115,27 @@ func main() {
 }
 
 func loadConfig() {
+	// Check for environment variables first (Pterodactyl support)
+	albumURL := os.Getenv("ALBUM_URL")
+	portStr := os.Getenv("PORT")
+	
+	if albumURL != "" && portStr != "" {
+		// Use environment variables
+		port, err := strconv.Atoi(portStr)
+		if err != nil {
+			log.Fatal("Invalid PORT environment variable:", err)
+		}
+		
+		config = &Config{
+			AlbumURL: albumURL,
+			Port:     port,
+		}
+		
+		log.Printf("Using environment variables - Album URL: %s, Port: %d", albumURL, port)
+		return
+	}
+	
+	// Fallback to config.json file
 	data, err := os.ReadFile("config.json")
 	if err != nil {
 		log.Fatal("Error reading config.json:", err)
@@ -125,7 +147,7 @@ func loadConfig() {
 	}
 
 	if config.AlbumURL == "" {
-		log.Fatal("Album URL not found in config.json")
+		log.Fatal("Album URL not found in config.json or ALBUM_URL environment variable")
 	}
 
 	if config.Port == 0 {
