@@ -1,26 +1,15 @@
-# Use the official Go image as base
-FROM golang:1.21-alpine
+FROM golang:1.24.5-bullseye
 
-# Set working directory
-WORKDIR /app
+LABEL maintainer="s1522711, <s1522711@protonmail.com>"
 
-# Install git (needed for go mod download)
-RUN apk add --no-cache git
+RUN apk add --no-cache --update curl ca-certificates openssl git tar bash sqlite fontconfig && adduser --disabled-password --home /home/container container
 
-# Copy go mod files
-COPY go.mod go.sum ./
+USER container
+ENV USER=container HOME=/home/container
 
-# Download dependencies
-RUN go mod download
+WORKDIR /home/container
 
-# Copy source code
-COPY . .
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# Build the application
-RUN go build -o main .
-
-# Expose port
-EXPOSE 8080
-
-# Run the application
-CMD ["./main"] 
+CMD ["/bin/bash", "/entrypoint.sh"]
