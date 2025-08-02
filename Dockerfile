@@ -11,4 +11,6 @@ WORKDIR /home/container
 
 COPY ./entrypoint.sh /entrypoint.sh
 
+RUN mkdir -p /go/pkg/mod && chmod -R 777 /go/pkg/mod
+
 CMD ["/bin/bash", "/entrypoint.sh"]
