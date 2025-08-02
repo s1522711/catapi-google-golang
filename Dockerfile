@@ -9,8 +9,15 @@ ENV USER=container HOME=/home/container
 
 WORKDIR /home/container
 
-COPY ./entrypoint.sh /entrypoint.sh
+# Move the go path and go mod cache to the home directory
+RUN mkdir -p /home/container/go
+RUN mkdir -p /home/container/go/pkg/mod
 
-RUN mkdir -p /go/pkg/mod && chmod -R 777 /go/pkg/mod
+# Export the environment variables
+ENV GOPATH=$HOME/go
+ENV GOMODCACHE=$HOME/go/pkg/mod
+ENV PATH=$PATH:$GOPATH/bin
+
+COPY ./entrypoint.sh /entrypoint.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]
