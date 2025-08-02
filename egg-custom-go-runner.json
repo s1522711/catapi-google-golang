@@ -4,7 +4,7 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2025-08-02T02:47:25+02:00",
+    "exported_at": "2025-08-02T03:06:16+02:00",
     "name": "Custom Go Runner",
     "author": "s1522711@protonmail.com",
     "description": "Wooo Hooo",
@@ -13,7 +13,7 @@
         "s1522711\/ptero-go:latest": "s1522711\/ptero-go:latest"
     },
     "file_denylist": [],
-    "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == \"1\" ]]; then git pull; fi && go mod tidy && go run ${MAIN_FILE}",
+    "startup": "git pull ; go mod tidy ; git pull ; go mod tidy ; go run \"${MAIN_FILE}\"",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"Server starting on port\"\r\n}",
