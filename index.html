@@ -31,7 +31,10 @@ img:hover {
 	padding: 15px;
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: 10px;
-	display: inline-block;
+	display: block;
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
 }
 .controls label {
 	margin-right: 15px;
@@ -51,6 +54,8 @@ img:hover {
     <h1>Die Katzenbilder</h1>
     <p><i>A randomly selected picture of my cat (out of over 400) is served <a href="./api/img.png">here</a>.</i></p>
     
+    <img src="./api/img.png" width="500px" id="img" alt="A random cat image from My CatAPI">
+    
     <div class="controls">
         <label>
             <input type="checkbox" id="autoRefresh"> Enable auto-refresh
@@ -59,8 +64,6 @@ img:hover {
             Refresh every <input type="number" id="refreshInterval" value="5" min="1" max="60"> seconds
         </label>
     </div>
-    
-    <img src="./api/img.png" width="500px" id="img" alt="A random cat image from My CatAPI">
     <p>Have fun!</p>
     <p><a href="./api/">you can fuck around with the api here</a></p>
     <a href="./"><button>Reload</button></a>
