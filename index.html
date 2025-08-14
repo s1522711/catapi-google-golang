@@ -26,23 +26,88 @@ img {
 img:hover {
 	transform: scale(1.07);
 }
+.controls {
+	margin: 20px 0;
+	padding: 15px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	display: inline-block;
+}
+.controls label {
+	margin-right: 15px;
+}
+.controls input[type="number"] {
+	width: 80px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+.controls input[type="checkbox"] {
+	margin-right: 5px;
+}
 </style>
 <body>
     <h1>Die Katzenbilder</h1>
     <p><i>A randomly selected picture of my cat (out of over 400) is served <a href="./api/img.png">here</a>.</i></p>
+    
+    <div class="controls">
+        <label>
+            <input type="checkbox" id="autoRefresh"> Enable auto-refresh
+        </label>
+        <label>
+            Refresh every <input type="number" id="refreshInterval" value="5" min="1" max="60"> seconds
+        </label>
+    </div>
+    
     <img src="./api/img.png" width="500px" id="img" alt="A random cat image from My CatAPI">
     <p>Have fun!</p>
     <p><a href="./api/">you can fuck around with the api here</a></p>
     <a href="./"><button>Reload</button></a>
     <script>
-        // cache burst
-        const cacheBuster = new Date().toLocaleString().replace(/:/g, '');
-        const url = `./api/img.png?cb=${cacheBuster}`;
-        const img = document.getElementById('img');
-        img.src = url;
-        img.onload = function() {
-            console.log('Image loaded successfully');
-        };
+        let refreshTimer = null;
+        
+        function loadNewImage() {
+            // cache burst
+            const cacheBuster = new Date().toLocaleString().replace(/:/g, '');
+            const url = `./api/img.png?cb=${cacheBuster}`;
+            const img = document.getElementById('img');
+            img.src = url;
+            img.onload = function() {
+                console.log('Image loaded successfully');
+            };
+        }
+        
+        function startAutoRefresh() {
+            const interval = parseInt(document.getElementById('refreshInterval').value) * 1000;
+            refreshTimer = setInterval(loadNewImage, interval);
+        }
+        
+        function stopAutoRefresh() {
+            if (refreshTimer) {
+                clearInterval(refreshTimer);
+                refreshTimer = null;
+            }
+        }
+        
+        // Initial image load
+        loadNewImage();
+        
+        // Event listeners
+        document.getElementById('autoRefresh').addEventListener('change', function() {
+            if (this.checked) {
+                startAutoRefresh();
+            } else {
+                stopAutoRefresh();
+            }
+        });
+        
+        document.getElementById('refreshInterval').addEventListener('change', function() {
+            if (document.getElementById('autoRefresh').checked) {
+                stopAutoRefresh();
+                startAutoRefresh();
+            }
+        });
     </script>
 </body>
 </html>
